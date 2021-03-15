@@ -56,6 +56,16 @@
       // .next() 要素の隣の要素を取得します。これは使わなくてもできます。
       // .children() 要素の子要素を取得します。
       // .stop() 現在動作中のアニメーション処理を全て中止します。
+      $(function () {
+        // menu__listクラスの子要素を取得し、hover時に関数が実行されるようにする 引数は二つ持ち、hover時と、hoverが話された時の関数を記述
+        $('.menu__list').children().hover(function() {
+          // その状態の時に隣の子要素を取得し、アニメーションをストップさせてからスライドダウンを実行
+          $(this).children().next().stop().slideDown();
+        }, function() {
+          // hoverが離された状態でも、隣の子要素を取得してからスライドアップを実行
+          $(this).children().next().stop().slideUp();
+        });
+      });
     </script>
   </body>
 </html>
