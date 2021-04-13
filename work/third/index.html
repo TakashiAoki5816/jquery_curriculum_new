@@ -30,11 +30,11 @@
       $(function() {
         // navの小要素であるliをクリックして、contents内の小要素であるli要素を表示させる。
         $('.nav').find('li').click(function() {
-          // .index() 要素のindexを取得します。
+          // indexメソッドで要素のインデックス番号を取得
           var targetNum = $(this).index();
           // contentsクラスの小要素全てにis-hiddenクラスを付与する
           $('.contents').find('li').addClass('is-hidden');
-          // contentsクラスとnavクラスと同じindexになった要素にis-hiddenクラスを付与する
+          // contentsクラスとnavクラスと同じインデックス番号になった要素にis-hiddenクラスを削除する
           $('.contents').find('li').eq(targetNum).removeClass('is-hidden');
         });
       });
