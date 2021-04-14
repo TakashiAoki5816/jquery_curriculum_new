@@ -28,13 +28,13 @@
       // .addClass() クラスを追加します。
       // .removeClass() クラスを削除します。
       $(function() {
-        // navの小要素であるliをクリックして、contents内の小要素であるli要素を表示させる。
+        // navの子要素であるliをクリックした際に、イベントが発火
         $('.nav').find('li').click(function() {
-          // indexメソッドで要素のインデックス番号を取得
+          // 要素のインデックス番号を取得し、targetNumに格納
           var targetNum = $(this).index();
-          // contentsクラスの小要素全てにis-hiddenクラスを付与する
+          // contentsクラスの子要素li全てにis-hiddenクラスを追加する
           $('.contents').find('li').addClass('is-hidden');
-          // contentsクラスとnavクラスと同じインデックス番号になった要素にis-hiddenクラスを削除する
+          // contentsクラスとnavクラスと同じインデックス番号になったli要素にis-hiddenクラスを削除する
           $('.contents').find('li').eq(targetNum).removeClass('is-hidden');
         });
       });
