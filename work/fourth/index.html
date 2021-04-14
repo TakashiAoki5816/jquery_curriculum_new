@@ -57,9 +57,9 @@
       // .children() 要素の子要素を取得します。
       // .stop() 現在動作中のアニメーション処理を全て中止します。
       $(function () {
-        // menu__listクラスの子要素を取得し、hover時に関数が実行されるようにする 引数は二つ持ち、hover時と、hoverが離された時の関数を記述
+        // menu__listクラスの子要素liタグ(AnimalとPlant)を取得し、hover時にイベントが発火 引数は二つ持ち、第一引数はhover時の処理、第二引数はhoverが離された時の処理
         $('.menu__list').children().hover(function() {
-          // hover時に隣の子要素を取得し、アニメーションをストップさせてからスライドダウンを実行
+          // hover時に隣の子要素liタグ(AnimalまたはPlant)を取得し、アニメーションをストップさせてからスライドダウンを実行
           $(this).children().next().stop().slideDown();
         }, function() {
           // hoverが離された状態でも、隣の子要素を取得してアニメーションをストップさせてからスライドアップを実行
