@@ -70,36 +70,42 @@
 <script src="../../common/js/jquery.js"></script>
 <script>
 $(function() {
-  // 第1問  id='q1'の要素の文字色を赤色にせよ。
+  // 第1問  id='q1'の要素の文字色を赤色にせよ。 CSS(プロパティ名, 値)でcssプロパティの値を取得
   $('#q1').css('color', 'red');
 
-  // 第2問  id='q2'の要素をクリックしたら背景色をピンクにせよ。
+  // 第2問  id='q2'の要素をクリックしたら背景色をピンクにせよ。 クリックされた際に引数のfunctionを実行
   $('#q2').click(function() {
     $(this).css('background-color', 'cadetblue');
   });
 
-  // 第3問  id='q3'の要素をクリックしたら2秒かけてフェードアウトさせよ。
-  $('#q3').click(fadeOut);
-  function fadeOut() {
+  // 第3問  id='q3'の要素をクリックしたら2秒かけてフェードアウトさせよ。 要素をフェードアウトして隠す
+  $('#q3').click(fade);
+  function fade() {
     $(this).fadeOut(2000);
   }
 
   // 第4問  id='q4'の要素をクリックしたらこの要素の前後とこの要素内の前後にテキストを挿入せよ。
   $('#q4').click(function() {
+          // 指定の要素の子要素の先頭に追加
     $(this).prepend('DOMの中の前')
+          // 指定の要素の子要素の最後に追加
            .append('DOMの中の後')
+          // 指定の要素の前に追加
            .before('DOMの前')
+          // 指定の要素の後に追加
            .after('DOMの後');
   });
 
   // 第5問  id='q5'の要素をクリックしたらこの要素にlargeというクラスを付与せよ。
   $('#q5').click(function() {
+    // 指定した要素に、cssクラスを追加
     $(this).addClass('large');
   });
 
   // 第6問  id='q6'の要素をクリックしたらこの要素を2秒かけてmargin-topとmargin-leftを100pxの位置に移動させよ。
   $('#q6').click(function() {
     $(this).animate({
+      // 2秒でmargin-left: 100px; margin-top: 100px;をanimateメソッドで滑らかに動くようにしている
       'marginLeft': 100,
       'marginTop': 100
     }, 2000);
@@ -107,6 +113,7 @@ $(function() {
 
   // 第7問  id='q7'の子要素をクリックしたら、その要素のインデックス（何番目か）をconsole.log()とalert()を用いて表示させよ。
   $('#q7').find('li').click(function() {
+    // indexメソッドで 要素のインデックス番号を取得
     var targetNum = $(this).index();
     console.log(targetNum);
     alert(targetNum);
@@ -114,20 +121,26 @@ $(function() {
 
   // 第8問  id='q8'の要素をhoverしたらlargeというクラスを付与し、hoverが外れたら、クラスを削除せよ。
   $('#q8').hover(function() {
+    // hover時はlargeクラスを追加
     $(this).addClass('large');
   }, function() {
+    // hoverが離れた際はlargeクラスを削除
     $(this).removeClass('large');
   });
 
   // 第9問  id='q9'の要素をクリックしたらこの要素に設定してあるdata属性をconsoleに表示せよ。
   $('#q9').click(function() {
+    // dataメソッドで要素に設定されたプロパティの値を取得
     var text = $(this).data('text');
     console.log(text);
   });
 
   // 第10問 id='q10'の子要素をクリックしたら、その要素のインデックスと等しいid='q11'の子要素にlargeというクラスを追加せよ。
+  // findメソッドで#q10内の子孫要素liを取得した際にイベントが発火
   $('#q10').find('li').click(function() {
+    // インデックス番号を取得し、numに格納
     var num = $(this).index();
+    // #q11の子孫要素liを取得し、numと等しいインデックス番号に対してlargeクラスを追加
     $('#q11').find('li').eq(num).addClass('large');
   });
 })
