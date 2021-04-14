@@ -33,9 +33,9 @@
           // 要素のインデックス番号を取得し、targetNumに格納
           var targetNum = $(this).index();
           // contentsクラスの子要素li全てにis-hiddenクラスを追加する
-          $('.contents').find('li').addClass('is-hidden');
-          // contentsクラスとnavクラスと同じインデックス番号になったli要素にis-hiddenクラスを削除する
-          $('.contents').find('li').eq(targetNum).removeClass('is-hidden');
+          $('.contents').find('li').addClass('is-hidden')
+          // contentsクラスのli要素とnavクラスとli要素と同じインデックス番号になったli要素にis-hiddenクラスを削除する
+                                   .eq(targetNum).removeClass('is-hidden');
         });
       });
     </script>
