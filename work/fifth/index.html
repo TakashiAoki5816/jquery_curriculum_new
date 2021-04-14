@@ -98,12 +98,10 @@
       // .change() セレクトボックスの値の変更をキャッチする関数
       // $().each() DOM要素を1つずつループ処理をする（ループ内で$(this)を使うと要素がひとつずつ取得できる）
       $(function() {
-        // selectクラス（セレクトボックス）の値(value)が変更された時にイベントを実行
         $('.select').change(function() {
-          // 要素のvalueを取得し、変数valueに格納
           var value = $(this).val();
           // 変数valueの値が"all"かどうかの条件分岐
-          if(value === "all") {
+          if(value === 'all') {
             // 変数valueの値がallだった場合、listクラスのli要素をeach文で一つずつ表示させる
             $('.list li').each(function() {
               $(this).show();
