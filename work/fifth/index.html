@@ -109,9 +109,9 @@
               $(this).show();
             });
           } else {
-            // 変数valueの値がallではなかった場合、if文で更に条件分岐
+            // 変数valueの値がallではなかった場合、listクラスのliタグに対してeach文の処理
             $('.list li').each(function () {
-              // 変数valueとDOM要素にあるdata-category-typeの値が一致しているか
+              // 変数valueとDOM要素にあるdata-category-typeの値が一致しているかif文で条件分岐
               if(value === $(this).data('category-type')) {
                 // 一致していた場合、その要素を表示
                 $(this).show();
