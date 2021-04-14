@@ -29,9 +29,11 @@
       // .fadeOut() 一定時間かけてフェードアウトする。
       $(function() {
         $('.modal-show').click(function() {
+          // fadeInメソッドで非表示になっているHTML要素をゆっくり時間をかけて表示させる
           $('.modal').fadeIn();
         });
         $('.modal-close').click(function() {
+          // fadeOutメソッドで非表示にする
           $('.modal').fadeOut();
         });
       });
