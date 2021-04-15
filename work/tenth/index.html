@@ -56,9 +56,9 @@
         // この中にデータ取得後の動きを記述していきます。
         $('.search__btn').on('click', function() {
           // console.log(data);
-          $.each(data.Items, function(index, value) {
-            console.log(value.Item.mediumImageUrl);
-            $('.lists').append('<li class="lists__item"><div class="lists__item__inner"><a href="" class="lists__item__link" target="_blank"><img src="${value.Item.mediumImageUrl}" class="lists__item__img" alt=""><p class="lists__item__detail">' + "作品名：" + value.Item.title + '</p><p class="lists__item__detail">' + "作者：" + value.Item.author + '</p><p class="lists__item__detail">' + "出版社：" + value.Item.publisherName + '</p></a></div></li>')
+          $.each(data.Items, function(i, item) {
+            // console.log(item.Item.mediumImageUrl);
+            $('.lists').append('<li class="lists__item"><div class="lists__item__inner"><a href="" class="lists__item__link" target="_blank">' + '<img src="' + item.Item.largeImageUrl + '" class="lists__item__img" alt="">' + '<p class="lists__item__detail">' + "作品名：" + item.Item.title + '</p><p class="lists__item__detail">' + "作者：" + item.Item.author + '</p><p class="lists__item__detail">' + "出版社：" + item.Item.publisherName + '</p></a></div></li>')
           });
         });
       });
