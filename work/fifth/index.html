@@ -100,22 +100,14 @@
       $(function() {
         $('.select').change(function() {
           var value = $(this).val();
-          // 変数valueの値が"all"かどうかの条件分岐
-          if(value === 'all') {
-            // 変数valueの値がallだった場合、listクラスのli要素をeach文で一つずつ表示させる
-            $('.list li').each(function() {
-              $(this).show();
-            });
+          if (value === 'all') {
+            $('.list li').show();
           } else {
-            // 変数valueの値がallではなかった場合、listクラスのliタグに対してeach文の処理
-            $('.list li').each(function () {
-              // 変数valueとDOM要素にあるdata-category-typeの値が一致しているかif文で条件分岐
-              if(value === $(this).data('category-type')) {
-                // 一致していた場合、その要素を表示
-                $(this).show();
+            $('.list li').each(function (index, li) {
+              if(value === $(li).data('category-type')) {
+                $(li).show();
               } else {
-                // それ以外の要素は隠す
-                $(this).hide();
+                $(li).hide();
               }
             });
           }
