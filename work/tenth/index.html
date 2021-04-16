@@ -69,6 +69,12 @@
               $('.btn-item:first-child').on('click', function(e) {
                 e.preventDefault();
               });
+            } else if(data.page === 100) {
+              $('.btn-item:last-child').prop("disabled", true)
+                                      .addClass("disabled");
+              $('.btn-item:last-child').on('click', function(e) {
+                e.preventDefault();
+              });
             }
           });
         });
