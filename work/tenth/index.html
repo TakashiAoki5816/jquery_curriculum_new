@@ -45,7 +45,6 @@
       $(function () {
         $('.search__btn').on('click', function() {
           var keyword = $('.search__text__input').val();
-
           $.ajax({
             url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
             type: 'GET',
@@ -69,24 +68,17 @@
             var pager = ('<div class="pager" data-js="pager"><div class="counter"><span class="counter-current">' + data.page + '</span>' + "/" + '<span class="counter-all">' + data.pageCount + '</span></div>' + '<div class="btn-wrapper">' + '<a class="btn-item" data-js="page-prev"href="">' + "前へ" + '</a>' +'<a class="btn-item" data-js="page-next" href="">' + "次へ" + '</a></div><div>');
             $('ul').after(pager);
 
+            btnClick();
+
             if(data.count < 20) {
               $('.btn-item').prop('disabled', true)
                             .addClass('disabled');
-              $('.btn-item').on('click', function(e) {
-                e.preventDefault();
-              });
             } else if(data.page === 1) {
               $('.btn-item:first-child').prop('disabled', true)
                                         .addClass('disabled');
-              $('.btn-item:first-child').on('click', function(e) {
-                e.preventDefault();
-              });
             } else if(data.page === 100) {
               $('.btn-item:last-child').prop('disabled', true)
                                        .addClass('disabled');
-              $('.btn-item:last-child').on('click', function(e) {
-                e.preventDefault();
-              });
             }
 
           }).fail(function(data) {
@@ -97,6 +89,28 @@
         });
       });
 
+      function btnClick() {
+        var keyword = $('.search__text__input').val();
+        var page = $('.counter-current').text();
+        $('.btn-item').on('click', function(e) {
+          e.preventDefault();
+          $.ajax({
+            url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
+            type: 'GET',
+            datatype: 'json',
+            data: {
+              // 「区分:サービス固有パラメーター」を確認して、必要な情報をdata内に入れましょう。
+              applicationId: appId,
+              booksGenreId: '001',
+              page: page,
+              hits: 20,
+              keyword: keyword
+          },
+          }).done(function(data) {
+            console.log(data.page);
+          });
+        });
+      }
       //
       //
       // $.ajaxによってデータが取得できたら、必要なデータ(作品名とか作者名とか)を取得します。
