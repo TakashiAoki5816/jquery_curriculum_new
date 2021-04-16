@@ -46,45 +46,45 @@
         $('.search__btn').on('click', function() {
           var keyword = $('.search__text__input').val();
 
-        $.ajax({
-          url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
-          type: 'GET',
-          datatype: 'json',
-          data: {
-            // 「区分:サービス固有パラメーター」を確認して、必要な情報をdata内に入れましょう。
-            applicationId: appId,
-            booksGenreId: '001',
-            page: 1,
-            hits: 20,
-            keyword: keyword
-        },
-        }).done(function(data) {
-          $('ul').empty();
-          $.each(data.Items, function(i, item) {
-            $('.lists').prepend('<li class="lists__item"><div class="lists__item__inner"><a href="' + item.Item.itemUrl +'" class="lists__item__link" target="_blank">' + '<img src="' + item.Item.largeImageUrl + '"class="lists__item__img" alt="">' + '<p class="lists__item__detail">' + "作品名：" + item.Item.title +'</p><p class="lists__item__detail">' + "作者：" + item.Item.author + '</p><p class="lists__item__detail">' + "出版社：" + item.Item.publisherName + '</p></a></div></li>');
-          });
+          $.ajax({
+            url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
+            type: 'GET',
+            datatype: 'json',
+            data: {
+              // 「区分:サービス固有パラメーター」を確認して、必要な情報をdata内に入れましょう。
+              applicationId: appId,
+              booksGenreId: '001',
+              page: 1,
+              hits: 20,
+              keyword: keyword
+          },
+          }).done(function(data) {
+            $('ul').empty();
+            $.each(data.Items, function(i, item) {
+              $('.lists').prepend('<li class="lists__item"><div class="lists__item__inner"><a href="' + item.Item.itemUrl +'" class="lists__item__link" target="_blank">' + '<img src="' + item.Item.largeImageUrl + '"class="lists__item__img" alt="">' + '<p class="lists__item__detail">' + "作品名：" + item.Item.title +'</p><p class="lists__item__detail">' + "作者：" + item.Item.author + '</p><p class="lists__item__detail">' + "出版社：" + item.Item.publisherName + '</p></a></div></li>');
+            });
 
-            $('.lists').after('<div class="pager" data-js="pager"><div class="counter"><span class="counter-current">' + data.page + '</span>' + "/" + '<span class="counter-all">' + data.pageCount + '</span></div>' + '<div class="btn-wrapper">' + '<a class="btn-item" data-js="page-prev" href="">' + "前へ" + '</a>' +'<a class="btn-item" data-js="page-next" href="">' + "次へ" + '</a></div></div>');
+              $('.lists').after('<div class="pager" data-js="pager"><div class="counter"><span class="counter-current">' + data.page + '</span>' + "/" + '<span class="counter-all">' + data.pageCount + '</span></div>' + '<div class="btn-wrapper">' + '<a class="btn-item" data-js="page-prev" href="">' + "前へ" + '</a>' +'<a class="btn-item" data-js="page-next" href="">' + "次へ" + '</a></div></div>');
 
-            if(data.page === 1) {
-              $('.btn-item:first-child').prop('disabled', true)
+              if(data.count < 20) {
+                $('.btn-item').prop('disabled', true)
+                              .addClass('disabled');
+                $('.btn-item').on('click', function(e) {
+                  e.preventDefault();
+                });
+              } else if(data.page === 1) {
+                $('.btn-item:first-child').prop('disabled', true)
+                                          .addClass('disabled');
+                $('.btn-item:first-child').on('click', function(e) {
+                  e.preventDefault();
+                });
+              } else if(data.page === 100) {
+                $('.btn-item:last-child').prop('disabled', true)
                                         .addClass('disabled');
-              $('.btn-item:first-child').on('click', function(e) {
-                e.preventDefault();
-              });
-            } else if(data.page === 100) {
-              $('.btn-item:last-child').prop('disabled', true)
-                                      .addClass('disabled');
-              $('.btn-item:last-child').on('click', function(e) {
-                e.preventDefault();
-              });
-            } else if(data.pageCount === 1) {
-              $('.btn-item').prop('disabled', true)
-                            .addClass('disabled');
-              $('.btn-item').on('click', function(e) {
-                e.preventDefault();
-              })
-            }
+                $('.btn-item:last-child').on('click', function(e) {
+                  e.preventDefault();
+                });
+              }
           });
         });
       });
