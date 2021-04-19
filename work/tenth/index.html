@@ -68,7 +68,6 @@
               $.each(data.Items, function(i, item) {
                 list(item);
               });
-
               pager(data);
               btnClick();
 
@@ -130,6 +129,7 @@
           $('ul').after(pager);
         }
 
+        // ページャをクリックした後の処理
         function btnClick() {
           keyword = $('.search__text__input').val();
           page = $('.counter-current').text();
@@ -137,14 +137,11 @@
           $('.btn-item').on('click', function(e) {
             e.preventDefault();
 
-            if($(this).data('js') === 'page-next') {
-              page++;
-            } else {
+            if($(this).data('js') === 'page-prev') {
               return false;
+            } else {
+              page++;
             }
-
-            // var item = $(this).data('js');
-            // console.log(item);
 
             $.ajax({
               url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
