@@ -84,99 +84,100 @@
             }
           });
         });
-      });
 
-      // 要素をリセットする
-      function reset() {
-        $('ul').empty();
-        $('.pager').remove();
-      }
 
-      function getBooks() {
-        $.ajax({
-            url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
-            type: 'GET',
-            datatype: 'json',
-            data: {
-              applicationId: appId,
-              booksGenreId: '001',
-              page: page,
-              hits: 20,
-              keyword: keyword
-            }
-        });
-      }
+        // 要素をリセットする
+        function reset() {
+          $('ul').empty();
+          $('.pager').remove();
+        }
 
-      // 本のリストを取得する
-      function list(item) {
-        var list = '<li class="lists__item">' +
-                      '<div class="lists__item__inner">' +
-                        '<a href="' + item.Item.itemUrl +'" class="lists__item__link" target="_blank">' +
-                          '<img src="' + item.Item.largeImageUrl + '"class="lists__item__img" alt="">' +
-                          '<p class="lists__item__detail">' + "作品名：" + item.Item.title +'</p>' +
-                          '<p class="lists__item__detail">' + "作者：" + item.Item.author + '</p>' +
-                          '<p class="lists__item__detail">' + "出版社：" + item.Item.publisherName + '</p>'+
-                        '</a>' +
-                      '</div>' +
-                    '</li>';
-        $('ul').prepend(list);
-      }
-
-      // ページャを取得する関数
-      function pager(data) {
-        var pager = '<div class="pager" data-js="pager">' +
-                      '<div class="counter">' +
-                        '<span class="counter-current">' +
-                          data.page +
-                        '</span>' + "/" +
-                        '<span class="counter-all">' +
-                          data.pageCount +
-                        '</span>' +
-                      '</div>' +
-                      '<div class="btn-wrapper">' +
-                        '<a class="btn-item" data-js="page-prev" href="">' + "前へ" + '</a>' +
-                        '<a class="btn-item" data-js="page-next" href="">' + "次へ" + '</a>' +
-                      '</div>' +
-                    '<div>';
-        $('ul').after(pager);
-      }
-
-      function btnClick() {
-        var keyword = $('.search__text__input').val();
-        var page = $('.counter-current').text();
-
-        $('.btn-item').on('click', function(e) {
-          e.preventDefault();
-
-          if($(this).data('js') === 'page-next') {
-            page++;
-          } else {
-            return false;
-          }
-
-          // var item = $(this).data('js');
-          // console.log(item);
-
+        function getBooks() {
           $.ajax({
-            url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
-            type: 'GET',
-            datatype: 'json',
-            data: {
-              applicationId: appId,
-              booksGenreId: '001',
-              page: page,
-              hits: 20,
-              keyword: keyword
-          },
-          }).done(function(data) {
-            reset();
-            $.each(data.Items, function(i, item) {
-              list(item);
-            });
-            pager(data);
+              url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
+              type: 'GET',
+              datatype: 'json',
+              data: {
+                applicationId: appId,
+                booksGenreId: '001',
+                page: page,
+                hits: 20,
+                keyword: keyword
+              }
           });
-        });
-      }
+        }
+
+        // 本のリストを取得する
+        function list(item) {
+          var list = '<li class="lists__item">' +
+                        '<div class="lists__item__inner">' +
+                          '<a href="' + item.Item.itemUrl +'" class="lists__item__link" target="_blank">' +
+                            '<img src="' + item.Item.largeImageUrl + '"class="lists__item__img" alt="">' +
+                            '<p class="lists__item__detail">' + "作品名：" + item.Item.title +'</p>' +
+                            '<p class="lists__item__detail">' + "作者：" + item.Item.author + '</p>' +
+                            '<p class="lists__item__detail">' + "出版社：" + item.Item.publisherName + '</p>'+
+                          '</a>' +
+                        '</div>' +
+                      '</li>';
+          $('ul').prepend(list);
+        }
+
+        // ページャを取得する関数
+        function pager(data) {
+          var pager = '<div class="pager" data-js="pager">' +
+                        '<div class="counter">' +
+                          '<span class="counter-current">' +
+                            data.page +
+                          '</span>' + "/" +
+                          '<span class="counter-all">' +
+                            data.pageCount +
+                          '</span>' +
+                        '</div>' +
+                        '<div class="btn-wrapper">' +
+                          '<a class="btn-item" data-js="page-prev" href="">' + "前へ" + '</a>' +
+                          '<a class="btn-item" data-js="page-next" href="">' + "次へ" + '</a>' +
+                        '</div>' +
+                      '<div>';
+          $('ul').after(pager);
+        }
+
+        function btnClick() {
+          var keyword = $('.search__text__input').val();
+          var page = $('.counter-current').text();
+
+          $('.btn-item').on('click', function(e) {
+            e.preventDefault();
+
+            if($(this).data('js') === 'page-next') {
+              page++;
+            } else {
+              return false;
+            }
+
+            // var item = $(this).data('js');
+            // console.log(item);
+
+            $.ajax({
+              url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
+              type: 'GET',
+              datatype: 'json',
+              data: {
+                applicationId: appId,
+                booksGenreId: '001',
+                page: page,
+                hits: 20,
+                keyword: keyword
+            },
+            }).done(function(data) {
+              reset();
+              $.each(data.Items, function(i, item) {
+                list(item);
+              });
+              pager(data);
+            });
+          });
+        }
+      });
       //
       //
       // $.ajaxによってデータが取得できたら、必要なデータ(作品名とか作者名とか)を取得します。
