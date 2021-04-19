@@ -58,8 +58,7 @@
               keyword: keyword
             },
           }).done(function(data) {
-            $('ul').empty();
-            $('.pager').remove();
+            reset();
             $.each(data.Items, function(i, item) {
               list(item);
             });
@@ -90,6 +89,12 @@
         });
       });
 
+      // 要素をリセットする
+      function reset() {
+        $('ul').empty();
+        $('.pager').remove();
+      }
+
       function getBooks() {
         $.ajax({
             url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
@@ -105,6 +110,7 @@
         });
       }
 
+      // 本のリストを取得する
       function list(item) {
         var list = '<li class="lists__item">' +
                              '<div class="lists__item__inner">' +
@@ -119,6 +125,7 @@
         $('ul').prepend(list);
       }
 
+      // ページャを取得する関数
       function pager(data) {
         var pager = '<div class="pager" data-js="pager">' +
                           '<div class="counter">' +
@@ -165,8 +172,7 @@
               keyword: keyword
           },
           }).done(function(data) {
-            $('ul').empty();
-            $('.pager').remove();
+            reset();
             $.each(data.Items, function(i, item) {
               list(item);
             });
