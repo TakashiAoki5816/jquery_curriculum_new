@@ -61,17 +61,18 @@
             $('ul').empty();
             $('.pager').remove();
             $.each(data.Items, function(i, item) {
-              var list = '<li class="lists__item">' +
-                             '<div class="lists__item__inner">' +
-                               '<a href="' + item.Item.itemUrl +'" class="lists__item__link" target="_blank">' +
-                                 '<img src="' + item.Item.largeImageUrl + '"class="lists__item__img" alt="">' +
-                                    '<p class="lists__item__detail">' + "作品名：" + item.Item.title +'</p>' +
-                                    '<p class="lists__item__detail">' + "作者：" + item.Item.author + '</p>' +
-                                    '<p class="lists__item__detail">' + "出版社：" + item.Item.publisherName + '</p>'+
-                                '</a>' +
-                              '</div>' +
-                          '</li>';
-              $('ul').prepend(list);
+              lists(item);
+              // var list = '<li class="lists__item">' +
+              //                '<div class="lists__item__inner">' +
+              //                  '<a href="' + item.Item.itemUrl +'" class="lists__item__link" target="_blank">' +
+              //                    '<img src="' + item.Item.largeImageUrl + '"class="lists__item__img" alt="">' +
+              //                       '<p class="lists__item__detail">' + "作品名：" + item.Item.title +'</p>' +
+              //                       '<p class="lists__item__detail">' + "作者：" + item.Item.author + '</p>' +
+              //                       '<p class="lists__item__detail">' + "出版社：" + item.Item.publisherName + '</p>'+
+              //                   '</a>' +
+              //                 '</div>' +
+              //             '</li>';
+              // $('ul').prepend(list);
             });
 
             var pager = '<div class="pager" data-js="pager">' +
@@ -115,7 +116,6 @@
         });
       });
 
-
       function getBooks() {
         $.ajax({
             url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
@@ -129,6 +129,20 @@
               keyword: keyword
             }
         });
+      }
+
+      function lists(item) {
+        var list = '<li class="lists__item">' +
+                             '<div class="lists__item__inner">' +
+                               '<a href="' + item.Item.itemUrl +'" class="lists__item__link" target="_blank">' +
+                                 '<img src="' + item.Item.largeImageUrl + '"class="lists__item__img" alt="">' +
+                                    '<p class="lists__item__detail">' + "作品名：" + item.Item.title +'</p>' +
+                                    '<p class="lists__item__detail">' + "作者：" + item.Item.author + '</p>' +
+                                    '<p class="lists__item__detail">' + "出版社：" + item.Item.publisherName + '</p>'+
+                                '</a>' +
+                              '</div>' +
+                          '</li>';
+        $('ul').prepend(list);
       }
 
       function btnClick() {
