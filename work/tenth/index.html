@@ -45,15 +45,15 @@
       $(function () {
         $('.search__btn').on('click', function() {
           var keyword = $('.search__text__input').val();
+          var page = 1;
           $.ajax({
             url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
             type: 'GET',
             datatype: 'json',
             data: {
-              // 「区分:サービス固有パラメーター」を確認して、必要な情報をdata内に入れましょう。
               applicationId: appId,
               booksGenreId: '001',
-              page: 1,
+              page: page,
               hits: 20,
               keyword: keyword
           },
@@ -65,7 +65,7 @@
               $('ul').prepend(list);
             });
 
-            var pager = ('<div class="pager" data-js="pager"><div class="counter"><span class="counter-current">' + data.page + '</span>' + "/" + '<span class="counter-all">' + data.pageCount + '</span></div>' + '<div class="btn-wrapper">' + '<a class="btn-item" data-js="page-prev"href="">' + "前へ" + '</a>' +'<a class="btn-item" data-js="page-next" href="">' + "次へ" + '</a></div><div>');
+            var pager = ('<div class="pager" data-js="pager"><div class="counter"><span class="counter-current">' + data.page + '</span>' + "/" + '<span class="counter-all">' + data.pageCount + '</span></div>' + '<div class="btn-wrapper">' + '<a class="btn-item" data-js="page-prev "href="">' + "前へ" + '</a>' +'<a class="btn-item" data-js="page-next" href="">' + "次へ" + '</a></div><div>');
             $('ul').after(pager);
 
             btnClick();
@@ -80,6 +80,10 @@
               $('.btn-item:last-child').prop('disabled', true)
                                        .addClass('disabled');
             }
+            // if(data.page === 1) {
+            //   $('.btn-item:first-child').prop("disabled", false)
+            //                             .addClass('disabled');
+            // }
 
           }).fail(function(data) {
             if(keyword.length === 0) {
@@ -92,15 +96,24 @@
       function btnClick() {
         var keyword = $('.search__text__input').val();
         var page = $('.counter-current').text();
-        page++;
+
         $('.btn-item').on('click', function(e) {
           e.preventDefault();
+
+          if($(this).data('js') === 'page-next') {
+            page++;
+          } else {
+            return false;
+          }
+
+          // var item = $(this).data('js');
+          // console.log(item);
+
           $.ajax({
             url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
             type: 'GET',
             datatype: 'json',
             data: {
-              // 「区分:サービス固有パラメーター」を確認して、必要な情報をdata内に入れましょう。
               applicationId: appId,
               booksGenreId: '001',
               page: page,
