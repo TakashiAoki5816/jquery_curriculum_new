@@ -43,57 +43,14 @@
       // 以下は今回使う$.ajaxの基本的な形です。
       //
       $(function () {
-        $('.search__btn').on('click', function() {
-          var keyword = $('.search__text__input').val();
-          var page = 1;
-          $.ajax({
-            url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
-            type: 'GET',
-            datatype: 'json',
-            data: {
-              applicationId: appId,
-              booksGenreId: '001',
-              page: page,
-              hits: 20,
-              keyword: keyword
-            },
-          }).done(function(data) {
-            reset();
-            $.each(data.Items, function(i, item) {
-              list(item);
-            });
+        getBooks();
 
-            pager(data);
-            btnClick();
-
-            if(data.count < 20) {
-              $('.btn-item').addClass('disabled');
-            } else if(data.page === 1) {
-              $('.btn-item:first-child').addClass('disabled');
-            } else if(data.page === 100) {
-              $('.btn-item:last-child').addClass('disabled');
-            }
-            // if(data.page === 1) {
-            //   $('.btn-item:first-child').prop("disabled", false)
-            //                             .addClass('disabled');
-            // }
-
-          }).fail(function(data) {
-            if(keyword.length === 0) {
-              $('.message').prepend('<p class="error-message">検索文字が入力されていません。</p>');
-            }
-          });
-        });
-
-
-        // 要素をリセットする
-        function reset() {
-          $('ul').empty();
-          $('.pager').remove();
-        }
-
+        // Ajax通信を行う処理
         function getBooks() {
-          $.ajax({
+          $('.search__btn').on('click', function() {
+            var keyword = $('.search__text__input').val();
+            var page = 1;
+            $.ajax({
               url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
               type: 'GET',
               datatype: 'json',
@@ -103,8 +60,41 @@
                 page: page,
                 hits: 20,
                 keyword: keyword
+              },
+            }).done(function(data) {
+              reset();
+              $.each(data.Items, function(i, item) {
+                list(item);
+              });
+
+              pager(data);
+              btnClick();
+
+              if(data.count < 20) {
+                $('.btn-item').addClass('disabled');
+              } else if(data.page === 1) {
+                $('.btn-item:first-child').addClass('disabled');
+              } else if(data.page === 100) {
+                $('.btn-item:last-child').addClass('disabled');
               }
+              // if(data.page === 1) {
+              //   $('.btn-item:first-child').prop("disabled", false)
+              //                             .addClass('disabled');
+              // }
+            }).fail(function(data) {
+              if(keyword.length === 0) {
+                $('.message').prepend('<p class="error-message">検索文字が入力されていません。</p>');
+              }
+            });
           });
+        }
+
+
+
+        // 要素をリセットする
+        function reset() {
+          $('ul').empty();
+          $('.pager').remove();
         }
 
         // 本のリストを取得する
