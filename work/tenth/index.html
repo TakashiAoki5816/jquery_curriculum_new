@@ -67,14 +67,11 @@
             btnClick();
 
             if(data.count < 20) {
-              $('.btn-item').prop('disabled', true)
-                            .addClass('disabled');
+              $('.btn-item').addClass('disabled');
             } else if(data.page === 1) {
-              $('.btn-item:first-child').prop('disabled', true)
-                                        .addClass('disabled');
+              $('.btn-item:first-child').addClass('disabled');
             } else if(data.page === 100) {
-              $('.btn-item:last-child').prop('disabled', true)
-                                       .addClass('disabled');
+              $('.btn-item:last-child').addClass('disabled');
             }
             // if(data.page === 1) {
             //   $('.btn-item:first-child').prop("disabled", false)
