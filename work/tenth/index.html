@@ -61,36 +61,10 @@
             $('ul').empty();
             $('.pager').remove();
             $.each(data.Items, function(i, item) {
-              lists(item);
-              // var list = '<li class="lists__item">' +
-              //                '<div class="lists__item__inner">' +
-              //                  '<a href="' + item.Item.itemUrl +'" class="lists__item__link" target="_blank">' +
-              //                    '<img src="' + item.Item.largeImageUrl + '"class="lists__item__img" alt="">' +
-              //                       '<p class="lists__item__detail">' + "作品名：" + item.Item.title +'</p>' +
-              //                       '<p class="lists__item__detail">' + "作者：" + item.Item.author + '</p>' +
-              //                       '<p class="lists__item__detail">' + "出版社：" + item.Item.publisherName + '</p>'+
-              //                   '</a>' +
-              //                 '</div>' +
-              //             '</li>';
-              // $('ul').prepend(list);
+              list(item);
             });
 
-            var pager = '<div class="pager" data-js="pager">' +
-                          '<div class="counter">' +
-                            '<span class="counter-current">' +
-                              data.page +
-                            '</span>' + "/" +
-                            '<span class="counter-all">' +
-                              data.pageCount +
-                            '</span>' +
-                          '</div>' +
-                        '<div class="btn-wrapper">' +
-                          '<a class="btn-item" data-js="page-prev" href="">' + "前へ" + '</a>' +
-                          '<a class="btn-item" data-js="page-next" href="">' + "次へ" + '</a>' +
-                        '</div>' +
-                       '<div>';
-            $('ul').after(pager);
-
+            pager(data);
             btnClick();
 
             if(data.count < 20) {
@@ -131,7 +105,7 @@
         });
       }
 
-      function lists(item) {
+      function list(item) {
         var list = '<li class="lists__item">' +
                              '<div class="lists__item__inner">' +
                                '<a href="' + item.Item.itemUrl +'" class="lists__item__link" target="_blank">' +
@@ -143,6 +117,24 @@
                               '</div>' +
                           '</li>';
         $('ul').prepend(list);
+      }
+
+      function pager(data) {
+        var pager = '<div class="pager" data-js="pager">' +
+                          '<div class="counter">' +
+                            '<span class="counter-current">' +
+                              data.page +
+                            '</span>' + "/" +
+                            '<span class="counter-all">' +
+                              data.pageCount +
+                            '</span>' +
+                          '</div>' +
+                        '<div class="btn-wrapper">' +
+                          '<a class="btn-item" data-js="page-prev" href="">' + "前へ" + '</a>' +
+                          '<a class="btn-item" data-js="page-next" href="">' + "次へ" + '</a>' +
+                        '</div>' +
+                       '<div>';
+        $('ul').after(pager);
       }
 
       function btnClick() {
@@ -176,12 +168,9 @@
             $('ul').empty();
             $('.pager').remove();
             $.each(data.Items, function(i, item) {
-              console.log(item);
-              var list = ('<li class="lists__item"><div class="lists__item__inner"><a href="' + item.Item.itemUrl +'" class="lists__item__link" target="_blank">' + '<img src="' + item.Item.largeImageUrl + '"class="lists__item__img" alt="">' + '<p class="lists__item__detail">' + "作品名：" + item.Item.title +'</p><p class="lists__item__detail">' + "作者：" + item.Item.author + '</p><p class="lists__item__detail">' + "出版社：" + item.Item.publisherName + '</p></a></div></li>');
-              $('ul').prepend(list);
+              list(item);
             });
-            var pager = ('<div class="pager" data-js="pager"><div class="counter"><span class="counter-current">' + data.page + '</span>' + "/" + '<span class="counter-all">' + data.pageCount + '</span></div>' + '<div class="btn-wrapper">' + '<a class="btn-item" data-js="page-prev" href="">' + "前へ" + '</a>' +'<a class="btn-item" data-js="page-next" href="">' + "次へ" + '</a></div><div>');
-              $('ul').after(pager);
+            pager(data);
           });
         });
       }
