@@ -107,7 +107,7 @@
                           '</a>' +
                         '</div>' +
                       '</li>';
-          $('ul').prepend(list);
+          $('ul').append(list);
         }
 
         // ページャを追加する処理
@@ -126,7 +126,7 @@
                           '<a class="btn-item" data-js="page-next" href="">' + "次へ" + '</a>' +
                         '</div>' +
                       '<div>';
-          $('ul').after(pager);
+          $('ul').append(pager);
         }
 
         // ページャをクリックした後の処理
