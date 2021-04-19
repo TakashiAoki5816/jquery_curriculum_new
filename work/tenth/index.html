@@ -43,13 +43,15 @@
       // 以下は今回使う$.ajaxの基本的な形です。
       //
       $(function () {
+        var keyword = "";
+        var page = null;
         getBooks();
 
         // Ajax通信を行う処理
         function getBooks() {
           $('.search__btn').on('click', function() {
-            var keyword = $('.search__text__input').val();
-            var page = 1;
+            keyword = $('.search__text__input').val();
+            page = 1;
             $.ajax({
               url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
               type: 'GET',
@@ -77,10 +79,7 @@
               } else if(data.page === 100) {
                 $('.btn-item:last-child').addClass('disabled');
               }
-              // if(data.page === 1) {
-              //   $('.btn-item:first-child').prop("disabled", false)
-              //                             .addClass('disabled');
-              // }
+
             }).fail(function(data) {
               if(keyword.length === 0) {
                 $('.message').prepend('<p class="error-message">検索文字が入力されていません。</p>');
@@ -91,13 +90,13 @@
 
 
 
-        // 要素をリセットする
+        // 要素をリセットする処理
         function reset() {
           $('ul').empty();
           $('.pager').remove();
         }
 
-        // 本のリストを取得する
+        // 本のリストを取得する処理
         function list(item) {
           var list = '<li class="lists__item">' +
                         '<div class="lists__item__inner">' +
@@ -112,7 +111,7 @@
           $('ul').prepend(list);
         }
 
-        // ページャを取得する関数
+        // ページャを追加する処理
         function pager(data) {
           var pager = '<div class="pager" data-js="pager">' +
                         '<div class="counter">' +
@@ -132,8 +131,8 @@
         }
 
         function btnClick() {
-          var keyword = $('.search__text__input').val();
-          var page = $('.counter-current').text();
+          keyword = $('.search__text__input').val();
+          page = $('.counter-current').text();
 
           $('.btn-item').on('click', function(e) {
             e.preventDefault();
