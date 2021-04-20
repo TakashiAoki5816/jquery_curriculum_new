@@ -58,7 +58,7 @@
 
         // disabledクラスをつけるかどうかの処理
         function checkItem(data) {
-          if(data.hits < 20) {
+          if(data.count < 20) {
             $('.btn-item').addClass('disabled');
           }
           if(data.page === 1) {
@@ -96,13 +96,13 @@
             btnClick();
           }).fail(function(error) {
             $('.message').empty();
-            if(error.status === 400) {
+            if(error.status === 0) {
+              $('.message').append('<p class="error-message">通信に失敗しました。インターネットの接続をご確認ください。</p>');
+            } else if(error.status === 400) {
               $('.message').append('<p class="error-message">検索文字が入力されていません。</p>');
               return false;
             } else if(error.status === 429) {
               $('.message').append('<p class="error-message">リクエスト過多です。しばらく時間を置いてからお試しください。</p>');
-            } else if(error.status === 0) {
-              $('.message').append('<p class="error-message">通信に失敗しました。インターネットの接続をご確認ください。</p>');
             }
           });
         }
