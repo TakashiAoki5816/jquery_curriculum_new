@@ -52,7 +52,20 @@
           $('.search__btn').on('click', function() {
             keyword = $('.search__text__input').val();
             page = 1;
-            $.ajax({
+            ajax();
+
+            if(data.count < 20) {
+              $('.btn-item').addClass('disabled');
+            } else if(data.page === 1) {
+              $('.btn-item:first-child').addClass('disabled');
+            } else if(data.page === 100) {
+              $('.btn-item:last-child').addClass('disabled');
+            }
+          });
+        }
+
+        function ajax() {
+          $.ajax({
               url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
               type: 'GET',
               datatype: 'json',
@@ -63,30 +76,19 @@
                 hits: 20,
                 keyword: keyword
               },
-            }).done(function(data) {
-              reset();
-              $.each(data.Items, function(i, item) {
-                list(item);
-              });
-              pager(data);
-              btnClick();
-
-              if(data.count < 20) {
-                $('.btn-item').addClass('disabled');
-              } else if(data.page === 1) {
-                $('.btn-item:first-child').addClass('disabled');
-              } else if(data.page === 100) {
-                $('.btn-item:last-child').addClass('disabled');
-              }
-
-            }).fail(function(data) {
-              if(keyword.length === 0) {
-                $('.message').prepend('<p class="error-message">検索文字が入力されていません。</p>');
-              }
+          }).done(function(data) {
+            reset();
+            $.each(data.Items, function(i, item) {
+              list(item);
             });
+            pager(data);
+            btnClick();
+          }).fail(function(data) {
+            if(keyword.length === 0) {
+              $('.message').prepend('<p class="error-message">検索文字が入力されていません。</p>');
+            }
           });
         }
-
 
 
         // 要素をリセットする処理
@@ -103,7 +105,7 @@
                             '<img src="' + item.Item.largeImageUrl + '"class="lists__item__img" alt="">' +
                             '<p class="lists__item__detail">' + "作品名：" + item.Item.title +'</p>' +
                             '<p class="lists__item__detail">' + "作者：" + item.Item.author + '</p>' +
-                            '<p class="lists__item__detail">' + "出版社：" + item.Item.publisherName + '</p>'+
+                            '<p class="lists__item__detail">' + "出版社：" + item.Item.publisherName + '</p>' +
                           '</a>' +
                         '</div>' +
                       '</li>';
@@ -153,7 +155,7 @@
                 page: page,
                 hits: 20,
                 keyword: keyword
-            },
+              },
             }).done(function(data) {
               reset();
               $.each(data.Items, function(i, item) {
