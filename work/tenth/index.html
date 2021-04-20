@@ -84,15 +84,26 @@
             btnClick();
           }).fail(function(error) {
             $('.message').empty();
-            if(error.status === 0) {
-              $('.message').append('<p class="error-message">通信に失敗しました。インターネットの接続をご確認ください。</p>');
-            } else if(error.status === 400) {
-              $('.message').append('<p class="error-message">検索文字が入力されていません。</p>');
-              return false;
-            } else if(error.status === 429) {
-              $('.message').append('<p class="error-message">リクエスト過多です。しばらく時間を置いてからお試しください。</p>');
-            }
+            errorMessage(error);
           });
+        }
+
+        // ステータスコードによってエラーを返す処理
+        function errorMessage(error) {
+          var error_status = error.status
+          var error_message;
+          switch (error_status) {
+            case 0:
+              error_message = '<p class="error-message">通信に失敗しました。インターネットの接続をご確認ください。</p>';
+              break;
+            case 429:
+              error_message = '<p class="error-message">リクエスト過多です。しばらく時間を置いてからお試しください。</p>';
+              break;
+            case 400:
+              error_message = '<p class="error-message">検索文字が入力されていません。</p>';
+              break;
+          }
+          $('.message').html(error_message);
         }
 
         // 要素をリセットする処理
