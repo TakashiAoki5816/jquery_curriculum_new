@@ -54,14 +54,26 @@
             page = 1;
             ajax();
 
-            if(data.count < 20) {
-              $('.btn-item').addClass('disabled');
-            } else if(data.page === 1) {
-              $('.btn-item:first-child').addClass('disabled');
-            } else if(data.page === 100) {
-              $('.btn-item:last-child').addClass('disabled');
-            }
+            // if(data.count < 20) {
+            //   $('.btn-item').addClass('disabled');
+            // } else if(data.page === 1) {
+            //   $('.btn-item:first-child').addClass('disabled');
+            // } else if(data.page === 100) {
+            //   $('.btn-item:last-child').addClass('disabled');
+            // }
           });
+        }
+
+        function checkItem(data) {
+          if(data.page === 1) {
+            $('.btn-item:first-child').addClass('disabled');
+          }
+          if(data.count < 20) {
+            $('.btn-item').addClass('disabled');
+          }
+          if(data.page === 100) {
+              $('.btn-item:last-child').addClass('disabled');
+          }
         }
 
         // Ajax通信を行う処理
@@ -79,6 +91,7 @@
               },
           }).done(function(data) {
             reset();
+            checkItem(data);
             $.each(data.Items, function(i, item) {
               list(item);
             });
@@ -90,7 +103,6 @@
             }
           });
         }
-
 
         // 要素をリセットする処理
         function reset() {
