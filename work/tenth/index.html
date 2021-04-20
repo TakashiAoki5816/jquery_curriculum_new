@@ -84,11 +84,10 @@
                 keyword: keyword
               },
           }).done(function(data) {
+            reset();
             if(data.hits === 0) {
               $('.message').append('<p class="error-message">検索結果が見つかりませんでした。<br>別のキーワードで検索して い。</p>');
-              return false;
             }
-            reset();
             $.each(data.Items, function(i, item) {
               list(item);
             });
@@ -169,21 +168,21 @@
         }
 
         // ステータスコードによってエラーを返す処理
-        function errorMessage(error) {
-          var error_status = error.status
-          var error_message;
-          switch (error_status) {
+        function error(error) {
+          var errorStatus = error.status
+          var errorMessage;
+          switch (errorStatus) {
             case 0:
-              error_message = '<p class="error-message">通信に失敗しました。インターネットの接続をご確認ください。</p>';
+              errorMessage = '<p class="error-message">通信に失敗しました。インターネットの接続をご確認ください。</p>';
               break;
             case 429:
-              error_message = '<p class="error-message">リクエスト過多です。しばらく時間を置いてからお試しください。</p>';
+              errorMessage = '<p class="error-message">リクエスト過多です。しばらく時間を置いてからお試しください。</p>';
               break;
             case 400:
-              error_message = '<p class="error-message">検索文字が入力されていません。</p>';
+              errorMessage = '<p class="error-message">検索文字が入力されていません。</p>';
               break;
           }
-          $('.message').html(error_message);
+          $('.message').html(errorMessage);
         }
       });
     </script>
