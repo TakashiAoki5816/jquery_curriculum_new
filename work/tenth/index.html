@@ -53,26 +53,18 @@
             keyword = $('.search__text__input').val();
             page = 1;
             ajax();
-
-            // if(data.count < 20) {
-            //   $('.btn-item').addClass('disabled');
-            // } else if(data.page === 1) {
-            //   $('.btn-item:first-child').addClass('disabled');
-            // } else if(data.page === 100) {
-            //   $('.btn-item:last-child').addClass('disabled');
-            // }
           });
         }
 
         function checkItem(data) {
+          if(data.hits < 20) {
+            $('.btn-item').addClass('disabled');
+          }
           if(data.page === 1) {
             $('.btn-item:first-child').addClass('disabled');
           }
-          if(data.count < 20) {
-            $('.btn-item').addClass('disabled');
-          }
-          if(data.page === 100) {
-              $('.btn-item:last-child').addClass('disabled');
+          if(data.page === data.pageCount) {
+            $('.btn-item:last-child').addClass('disabled');
           }
         }
 
@@ -91,11 +83,11 @@
               },
           }).done(function(data) {
             reset();
-            checkItem(data);
             $.each(data.Items, function(i, item) {
               list(item);
             });
             pager(data);
+            checkItem(data);
             btnClick();
           }).fail(function(data) {
             if(keyword.length === 0) {
