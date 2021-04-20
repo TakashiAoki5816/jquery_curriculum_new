@@ -56,25 +56,13 @@
           });
         }
 
-        // disabledクラスをつけるかどうかの処理
-        function checkItem(data) {
-          if(data.count < 20) {
-            $('.btn-item').addClass('disabled');
-          }
-          if(data.page === 1) {
-            $('.btn-item:first-child').addClass('disabled');
-          }
-          if(data.page === data.pageCount) {
-            $('.btn-item:last-child').addClass('disabled');
-          }
-        }
 
         // Ajax通信を行う処理
         function ajax() {
           $.ajax({
-              url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
-              type: 'GET',
-              datatype: 'json',
+            url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
+            type: 'GET',
+            datatype: 'json',
               data: {
                 applicationId: appId,
                 booksGenreId: '001',
@@ -82,7 +70,7 @@
                 hits: 20,
                 keyword: keyword
               },
-          }).done(function(data) {
+            }).done(function(data) {
             if(data.hits === 0) {
               $('.message').append('<p class="error-message">検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。</p>');
               return false;
@@ -113,6 +101,19 @@
           $('.pager').remove();
         }
 
+        // disabledクラスをつけるかどうかの処理
+        function checkItem(data) {
+          if(data.count < 20) {
+            $('.btn-item').addClass('disabled');
+          }
+          if(data.page === 1) {
+            $('.btn-item:first-child').addClass('disabled');
+          }
+          if(data.page === data.pageCount) {
+            $('.btn-item:last-child').addClass('disabled');
+          }
+        }
+
         // 本のリストを取得する処理
         function list(item) {
           var list = '<li class="lists__item">' +
@@ -131,19 +132,19 @@
         // ページャを追加する処理
         function pager(data) {
           var pager = '<div class="pager" data-js="pager">' +
-                        '<div class="counter">' +
-                          '<span class="counter-current">' +
-                            data.page +
-                          '</span>' + "/" +
-                          '<span class="counter-all">' +
-                            data.pageCount +
-                          '</span>' +
-                        '</div>' +
-                        '<div class="btn-wrapper">' +
-                          '<a class="btn-item" data-js="page-prev" href="">' + "前へ" + '</a>' +
-                          '<a class="btn-item" data-js="page-next" href="">' + "次へ" + '</a>' +
-                        '</div>' +
-                      '<div>';
+            '<div class="counter">' +
+              '<span class="counter-current">' +
+                data.page +
+                '</span>' + "/" +
+                '<span class="counter-all">' +
+                  data.pageCount +
+                  '</span>' +
+                  '</div>' +
+                  '<div class="btn-wrapper">' +
+                    '<a class="btn-item" data-js="page-prev" href="">' + "前へ" + '</a>' +
+                    '<a class="btn-item" data-js="page-next" href="">' + "次へ" + '</a>' +
+                  '</div>' +
+            '</div>';
           $('ul').append(pager);
         }
 
