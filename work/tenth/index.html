@@ -56,6 +56,7 @@
           });
         }
 
+        // disabledクラスをつけるかどうかの処理
         function checkItem(data) {
           if(data.hits < 20) {
             $('.btn-item').addClass('disabled');
@@ -82,6 +83,10 @@
                 keyword: keyword
               },
           }).done(function(data) {
+            if(data.hits === 0) {
+              $('.message').append('<p class="error-message">検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。</p>');
+              return false;
+            }
             reset();
             $.each(data.Items, function(i, item) {
               list(item);
