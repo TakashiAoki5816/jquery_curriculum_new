@@ -42,6 +42,19 @@
       // $.ajax({}) 外部ファイルやURLに対してデータをリクエストすることができます。
       // 以下は今回使う$.ajaxの基本的な形です。
       //
+      //
+      //
+      // $.ajaxによってデータが取得できたら、必要なデータ(作品名とか作者名とか)を取得します。
+      // 取得できたらHTMLに<ul class='lists'></ul>を用意しているので、下のテンプレに沿ってデータを入れ込みましょう。
+      //
+      // 取得できた書籍の件数をもとに、ページャを作成しましょう
+      // ページャの条件
+      // ├ 「現在のページ数」と「全てのページ数」が表示されている
+      // ├ 「前へ」と「次へ」のボタンがある
+      // ├ 1ページ目では「前へ」に、最後のページでは「次へ」にdisabledクラスをつけて非活性（使用不能）にする
+      // └ 1ページしかない場合はどちらもdisabledクラスをつけて非活性にする
+      //
+
       $(function () {
         var keyword = "";
         var page = null;
@@ -86,24 +99,6 @@
             $('.message').empty();
             errorMessage(error);
           });
-        }
-
-        // ステータスコードによってエラーを返す処理
-        function errorMessage(error) {
-          var error_status = error.status
-          var error_message;
-          switch (error_status) {
-            case 0:
-              error_message = '<p class="error-message">通信に失敗しました。インターネットの接続をご確認ください。</p>';
-              break;
-            case 429:
-              error_message = '<p class="error-message">リクエスト過多です。しばらく時間を置いてからお試しください。</p>';
-              break;
-            case 400:
-              error_message = '<p class="error-message">検索文字が入力されていません。</p>';
-              break;
-          }
-          $('.message').html(error_message);
         }
 
         // 要素をリセットする処理
@@ -161,7 +156,6 @@
 
         // ページャをクリックした後の処理
         function btnClick() {
-          keyword = $('.search__text__input').val();
           page = $('.counter-current').text();
 
           $('.btn-item').on('click', function(e) {
@@ -177,20 +171,25 @@
             ajax();
           });
         }
+
+        // ステータスコードによってエラーを返す処理
+        function errorMessage(error) {
+          var error_status = error.status
+          var error_message;
+          switch (error_status) {
+            case 0:
+              error_message = '<p class="error-message">通信に失敗しました。インターネットの接続をご確認ください。</p>';
+              break;
+            case 429:
+              error_message = '<p class="error-message">リクエスト過多です。しばらく時間を置いてからお試しください。</p>';
+              break;
+            case 400:
+              error_message = '<p class="error-message">検索文字が入力されていません。</p>';
+              break;
+          }
+          $('.message').html(error_message);
+        }
       });
-      //
-      //
-      // $.ajaxによってデータが取得できたら、必要なデータ(作品名とか作者名とか)を取得します。
-      // 取得できたらHTMLに<ul class='lists'></ul>を用意しているので、下のテンプレに沿ってデータを入れ込みましょう。
-      //
-      // 取得できた書籍の件数をもとに、ページャを作成しましょう
-      // ページャの条件
-      // ├ 「現在のページ数」と「全てのページ数」が表示されている
-      // ├ 「前へ」と「次へ」のボタンがある
-      // ├ 1ページ目では「前へ」に、最後のページでは「次へ」にdisabledクラスをつけて非活性（使用不能）にする
-      // └ 1ページしかない場合はどちらもdisabledクラスをつけて非活性にする
-      //
-      // ページャのテンプレート
     </script>
   </body>
 </html>
