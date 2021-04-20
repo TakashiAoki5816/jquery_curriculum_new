@@ -83,9 +83,9 @@
                 hits: 20,
                 keyword: keyword
               },
-            }).done(function(data) {
+          }).done(function(data) {
             if(data.hits === 0) {
-              $('.message').append('<p class="error-message">検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。</p>');
+              $('.message').append('<p class="error-message">検索結果が見つかりませんでした。<br>別のキーワードで検索して い。</p>');
               return false;
             }
             reset();
