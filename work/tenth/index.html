@@ -65,7 +65,7 @@
           $('.search__btn').on('click', function() {
             keyword = $('.search__text__input').val();
             page = 1;
-            ajax();
+            getData();
           });
         }
 
@@ -84,16 +84,16 @@
                 keyword: keyword
               },
           }).done(function(data) {
-            reset();
+            dataReset();
             if(data.hits === 0) {
               $('.message').append('<p class="error-message">検索結果が見つかりませんでした。<br>別のキーワードで検索して い。</p>');
             }
             $.each(data.Items, function(i, item) {
-              list(item);
+              getList(item);
             });
-            pager(data);
+            addPager(data);
             checkItem(data);
-            btnClick();
+            pageChanger();
           }).fail(function(error) {
             reset();
             errorCode(error);
@@ -151,7 +151,7 @@
         }
 
         // ページャをクリックした後の処理
-        function btnClick() {
+        function pageChanger() {
           page = $('.counter-current').text();
 
           $('.btn-item').on('click', function(e) {
@@ -164,7 +164,7 @@
             } else if($(this).data('js') === 'page-prev')
               page--;
 
-            ajax();
+            getData();
           });
         }
 
