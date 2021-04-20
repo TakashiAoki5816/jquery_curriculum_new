@@ -85,9 +85,10 @@
                 keyword: keyword
               },
           }).done(function(data) {
-            dataReset();
+            resetData();
             if(data.hits === 0) {
-              $('.message').append('<p class="error-message">検索結果が見つかりませんでした。<br>別のキーワードで検索して い。</p>');
+              $('.message').append('<p class="error-message">検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。</p>');
+              return false;
             }
             $.each(data.Items, function(i, item) {
               getList(item);
@@ -96,13 +97,13 @@
             checkItem(data);
             pageChanger();
           }).fail(function(error) {
-            reset();
+            resetData();
             errorCode(error);
           });
         }
 
         // 要素をリセットする処理
-        function dataReset() {
+        function resetData() {
           $('ul').empty();
           $('.pager').remove();
           $('.message').empty();
@@ -185,7 +186,7 @@
               errorMessage = '<p class="error-message">検索文字が入力されていません。</p>';
               break;
             default:
-              errorMessage = '<p class="error-message">何かしらのエラーが起きています。</p>';
+              errorMessage = '<p class="error-message">エラーが起きています。</p>';
           }
           $('.message').html(errorMessage);
         }
