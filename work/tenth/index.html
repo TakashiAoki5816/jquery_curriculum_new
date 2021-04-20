@@ -47,7 +47,7 @@
         var page = null;
         getBooks();
 
-        // Ajax通信を行う処理
+        // 本を取得する処理
         function getBooks() {
           $('.search__btn').on('click', function() {
             keyword = $('.search__text__input').val();
@@ -64,6 +64,7 @@
           });
         }
 
+        // Ajax通信を行う処理
         function ajax() {
           $.ajax({
               url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
@@ -145,24 +146,25 @@
               page++;
             }
 
-            $.ajax({
-              url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
-              type: 'GET',
-              datatype: 'json',
-              data: {
-                applicationId: appId,
-                booksGenreId: '001',
-                page: page,
-                hits: 20,
-                keyword: keyword
-              },
-            }).done(function(data) {
-              reset();
-              $.each(data.Items, function(i, item) {
-                list(item);
-              });
-              pager(data);
-            });
+            ajax();
+            // $.ajax({
+            //   url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
+            //   type: 'GET',
+            //   datatype: 'json',
+            //   data: {
+            //     applicationId: appId,
+            //     booksGenreId: '001',
+            //     page: page,
+            //     hits: 20,
+            //     keyword: keyword
+            //   },
+            // }).done(function(data) {
+            //   reset();
+            //   $.each(data.Items, function(i, item) {
+            //     list(item);
+            //   });
+            //   pager(data);
+            // });
           });
         }
       });
