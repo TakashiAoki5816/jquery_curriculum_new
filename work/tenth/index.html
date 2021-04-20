@@ -144,31 +144,14 @@
           $('.btn-item').on('click', function(e) {
             e.preventDefault();
 
-            if($(this).data('js') === 'page-prev') {
+            if($(this).hasClass('disabled')) {
               return false;
-            } else {
+            } else if($(this).data('js') === 'page-next') {
               page++;
-            }
+            } else if($(this).data('js') === 'page-prev')
+              page--;
 
             ajax();
-            // $.ajax({
-            //   url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
-            //   type: 'GET',
-            //   datatype: 'json',
-            //   data: {
-            //     applicationId: appId,
-            //     booksGenreId: '001',
-            //     page: page,
-            //     hits: 20,
-            //     keyword: keyword
-            //   },
-            // }).done(function(data) {
-            //   reset();
-            //   $.each(data.Items, function(i, item) {
-            //     list(item);
-            //   });
-            //   pager(data);
-            // });
           });
         }
       });
