@@ -71,7 +71,7 @@
 
 
         // Ajax通信を行う処理
-        function ajax() {
+        function getData() {
           $.ajax({
             url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404',
             type: 'GET',
@@ -101,7 +101,7 @@
         }
 
         // 要素をリセットする処理
-        function reset() {
+        function dataReset() {
           $('ul').empty();
           $('.pager').remove();
           $('.message').empty();
@@ -121,7 +121,7 @@
         }
 
         // 本のリストを取得する処理
-        function list(item) {
+        function getList(item) {
           var list = '<li class="lists__item">' +
                         '<div class="lists__item__inner">' +
                           '<a href="' + item.Item.itemUrl +'" class="lists__item__link" target="_blank">' +
@@ -136,7 +136,7 @@
         }
 
         // ページャを追加する処理
-        function pager(data) {
+        function addPager(data) {
           var pager = '<div class="pager" data-js="pager">' +
                         '<div class="counter">' +
                           '<span class="counter-current">' + data.page + '</span>' + "/" +
