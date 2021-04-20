@@ -95,8 +95,8 @@
             checkItem(data);
             btnClick();
           }).fail(function(error) {
-            $('.message').empty();
-            errorMessage(error);
+            reset();
+            errorCode(error);
           });
         }
 
@@ -104,6 +104,7 @@
         function reset() {
           $('ul').empty();
           $('.pager').remove();
+          $('.message').empty();
         }
 
         // disabledクラスをつけるかどうかの処理
@@ -168,7 +169,7 @@
         }
 
         // ステータスコードによってエラーを返す処理
-        function error(error) {
+        function errorCode(error) {
           var errorStatus = error.status
           var errorMessage;
           switch (errorStatus) {
@@ -181,6 +182,8 @@
             case 400:
               errorMessage = '<p class="error-message">検索文字が入力されていません。</p>';
               break;
+            default:
+              errorMessage = '<p class="error-message">何かしらのエラーが起きています。</p>';
           }
           $('.message').html(errorMessage);
         }
