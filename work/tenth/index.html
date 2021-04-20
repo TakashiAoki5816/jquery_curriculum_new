@@ -162,9 +162,9 @@
 
         // ステータスコードによってエラーを返す処理
         function errorCode(error) {
-          var errorStatus = error.status
+          var Status = error.status
           var errorMessage = '';
-          switch (errorStatus) {
+          switch (Status) {
             case 0:
               errorMessage = '通信に失敗しました。インターネットの接続をご確認ください。';
               break;
